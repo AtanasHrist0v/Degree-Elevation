@@ -30,7 +30,7 @@ function init() {
     for (var i = 0; i < controlPoints.length; i++) {
         ctx.beginPath();
         ctx.arc(controlPoints[i][0], controlPoints[i][1], pointRadius, 0, 2 * Math.PI);
-        ctx.fillStyle = 'blue';
+        ctx.fillStyle = 'black';
         ctx.fill();
         ctx.stroke();
     }

@@ -10,12 +10,12 @@
 
 <body onload="init()">
     <h1>Degree elevation</h1>
-    <h2>Click +: Increase degree | Drag: Move</h2>
+    <h2>Click +: Increase degree | Click Clear: Clear canvas | Drag: Move</h2>
     <canvas id="curve">
     </canvas>
     <div>
-        <button onclick="reset()">Reset</button>
-        <button onclick="increaseDegree()">+</button>
+        <button onclick="reset()" id="clear">Clear</button>
+        <button onclick="increaseDegree()" id="increaseDegree">+</button>
     </div>
     <script src="script.js"></script>
 </body>

@@ -7,26 +7,30 @@ canvas.height = 500;
 var pointRadius = 5;
 var isMoving = false;
 
-var controlPoints = [[canvas.width / 2 - 200, canvas.height / 2 + 120],
-[canvas.width / 2, canvas.height / 2 - 200],
-[canvas.width / 2 + 200, canvas.height / 2 + 120]];
+let controlPoints = [[canvas.width / 2 - 200, canvas.height / 2 + 120],
+    [canvas.width / 2, canvas.height / 2 - 200],
+    [canvas.width / 2 + 200, canvas.height / 2 + 120]];
 
 function init() {
+    //draw bounding polygon
     ctx.beginPath();
     ctx.setLineDash([8, 8]);
     ctx.lineWidth = 1;
-    for (var i = 0; i < controlPoints.length; i++) {
+    for(var i = 0; i < controlPoints.length; i++)
+    {
         ctx.lineTo(controlPoints[i][0], controlPoints[i][1]);
     }
     ctx.stroke();
 
+    //draw bezier curve
     drawBezierCurveCasteljau();
 
+    //draw control points
     ctx.beginPath();
     for (var i = 0; i < controlPoints.length; i++) {
         ctx.beginPath();
         ctx.arc(controlPoints[i][0], controlPoints[i][1], pointRadius, 0, 2 * Math.PI);
-        ctx.fillStyle = 'black';
+        ctx.fillStyle = 'blue';
         ctx.fill();
         ctx.stroke();
     }
@@ -45,8 +49,8 @@ function drawBezierCurveCasteljau() {
 
     for (var i = 0; i <= 100; i++) {
         var controlArr = [...controlPoints];
-        for (var j = 0; j < curveDegree; j++) {
-            for (var r = 0; r < curveDegree - j; r++) {
+        for(var j = 0; j < curveDegree; j++) {
+            for(var r = 0; r < curveDegree - j; r++) {
                 var newX = (1 - t) * controlArr[r][0] + t * controlArr[r + 1][0];
                 var newY = (1 - t) * controlArr[r][1] + t * controlArr[r + 1][1];
                 controlArr[r] = [newX, newY];
@@ -103,7 +107,8 @@ function increaseDegree() {
     newControlPoints.push(controlPoints[0]);
     var n = controlPoints.length;
 
-    for (var i = 1; i < n; i++) {
+    for(var i = 1; i < n; i++)
+    {
         newX = (i / n) * controlPoints[i - 1][0] + ((n - i) / n) * controlPoints[i][0];
         newY = (i / n) * controlPoints[i - 1][1] + ((n - i) / n) * controlPoints[i][1];
         newControlPoints.push([newX, newY]);
@@ -111,6 +116,15 @@ function increaseDegree() {
 
     newControlPoints.push(controlPoints[n - 1]);
     controlPoints = newControlPoints;
+
+    clearCanvas();
+    init();
+}
+
+function reset() {
+    controlPoints = [[canvas.width / 2 - 200, canvas.height / 2 + 120],
+    [canvas.width / 2, canvas.height / 2 - 200],
+    [canvas.width / 2 + 200, canvas.height / 2 + 120]];
 
     clearCanvas();
     init();

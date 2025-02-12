@@ -14,25 +14,35 @@ let controlPoints = [[canvas.width / 2 - 200, canvas.height / 2 + 120],
 function init() {
     ctx.beginPath();
     ctx.lineWidth = 1;
+    ctx.strokeStyle = "blue";
     for (var i = 0; i < controlPoints.length; i++) {
         ctx.lineTo(controlPoints[i][0], controlPoints[i][1]);
     }
     ctx.stroke();
 
+    ctx.strokeStyle = "red";
     drawBezierCurveCasteljau();
-
+    ctx.strokeStyle = "blue";
     ctx.beginPath();
     for (var i = 0; i < controlPoints.length; i++) {
         ctx.beginPath();
         ctx.arc(controlPoints[i][0], controlPoints[i][1], pointRadius, 0, 2 * Math.PI);
-        ctx.fillStyle = 'black';
+        ctx.fillStyle = 'blue';
         ctx.fill();
         ctx.stroke();
+
+        ctx.textAlign = "left";
+        ctx.textBaseline = "middle";
+        ctx.fillStyle = "blue";
+        ctx.font = "20px Arial";
+        ctx.fillText("b" + i, controlPoints[i][0] + 10, controlPoints[i][1]);
     }
-    ctx.textAlign = "left";
+
+    ctx.textAlign = "right";
+    ctx.textBaseline = "bottom";
     ctx.fillStyle = "black";
     ctx.font = "30px Arial";
-    ctx.fillText("Degree: " + (controlPoints.length - 1), 10, 30);
+    ctx.fillText("Degree: " + (controlPoints.length - 1), canvas.width - 10, canvas.height - 10);
 }
 
 function drawBezierCurveCasteljau() {
